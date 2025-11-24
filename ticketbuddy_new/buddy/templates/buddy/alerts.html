@@ -1,0 +1,35 @@
+{% extends "buddy/base.html" %}
+{% block title %}Alerts{% endblock %}
+
+{% block content %}
+<div style="padding:30px;">
+
+<h2 style="text-align:center; color:#ff9a00; margin-bottom:25px;">
+    🔔 Transport Alerts
+</h2>
+
+{% if alerts %}
+    {% for alert in alerts %}
+        <div style="
+            width:75%;
+            margin:auto;
+            background:#fff7da;
+            padding:18px;
+            margin-bottom:15px;
+            border-left:6px solid #ff9a00;
+            border-radius:8px;
+            box-shadow:0 3px 10px rgba(0,0,0,0.08);
+        ">
+            <b style="color:#cc7a00;">{{ alert.title }}</b><br>
+            <small style="color:#777;">{{ alert.timestamp }}</small>
+            <p style="margin-top:8px; color:#444;">{{ alert.message }}</p>
+        </div>
+    {% endfor %}
+{% else %}
+    <p style="text-align:center; padding:20px; color:#666;">
+        No alerts available.
+    </p>
+{% endif %}
+
+</div>
+{% endblock %}

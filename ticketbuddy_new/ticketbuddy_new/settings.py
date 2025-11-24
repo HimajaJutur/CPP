@@ -27,7 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['e49d98a57d6a48b5ae2ab5ae969e7e8c.vfs.cloud9.us-east-1.amazonaws.com']
 
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://e49d98a57d6a48b5ae2ab5ae969e7e8c.vfs.cloud9.us-east-1.amazonaws.com",
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -55,7 +57,7 @@ ROOT_URLCONF = 'ticketbuddy_new.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "buddy" / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm OTP</title>
+    <style>
+        body { background:#eef1ff; font-family:Arial; display:flex; justify-content:center; align-items:center; height:100vh; }
+        .card { background:white; padding:25px; width:350px; border-radius:10px; box-shadow:0 0 15px #00000020; }
+        input { width:100%; padding:12px; margin-top:10px; border:1px solid #ccc; border-radius:6px; }
+        button { width:100%; margin-top:20px; padding:12px; background:#1f53ff; border:none; color:white; border-radius:6px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>Enter OTP</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="code" placeholder="Verification Code" required>
+        <button type="submit">Confirm Account</button>
+    </form>
+</div>
+
+</body>
+</html>

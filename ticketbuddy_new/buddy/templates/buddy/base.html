@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}TicketBuddy{% endblock %}</title>
+
+    <style>
+        body { margin: 0; font-family: Arial; background:#eef3ff; }
+
+        /* NAVBAR */
+        .navbar {
+            background: #0058ff;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        .nav-title { font-size: 26px; font-weight: bold; }
+
+        .dropdown { position: relative; display: inline-block; }
+        .dropbtn {
+            background: white; color:#0058ff;
+            padding:10px 18px; border-radius:6px;
+            cursor:pointer; border:none; font-size:16px;
+        }
+        .dropdown-content {
+            display:none; position:absolute; background:white;
+            min-width:160px; border-radius:6px;
+            box-shadow:0 6px 12px rgba(0,0,0,0.15);
+            right:0;
+        }
+        .dropdown-content a {
+            display:block; padding:12px; text-decoration:none;
+            color:#0058ff; font-size:15px;
+        }
+        .dropdown-content a:hover { background:#e7f0ff; }
+        .dropdown:hover .dropdown-content { display:block; }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-title">🚍 TicketBuddy</div>
+
+    <div class="dropdown">
+        <button class="dropbtn">{{ request.session.username }}</button>
+        <div class="dropdown-content">
+            <a href="/profile">👤 Profile</a>
+            <a href="/history">📄 My Bookings</a>
+            <a href="/alerts">🔔 Alerts</a>
+            <a href="/logout">🚪 Logout</a>
+        </div>
+    </div>
+</div>
+
+<!-- PAGE CONTENT -->
+{% block content %}
+{% endblock %}
+
+</body>
+</html>

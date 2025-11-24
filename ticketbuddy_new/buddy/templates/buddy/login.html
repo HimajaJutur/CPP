@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - TicketBuddy</title>
+
+    <style>
+        body {
+            background: #eef1ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00000020;
+        }
+        h2 {
+            text-align: center;
+            color: #1f53ff;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            background: #1f53ff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover {
+            opacity: 0.9;
+        }
+        .link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .msg {
+            margin-bottom: 10px;
+            color: red;
+            text-align: center;
+            font-size: 14px;
+        }
+        .success {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+<div class="card">
+    <h2>Login</h2>
+
+    <!-- MESSAGE DISPLAY -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="msg {% if message.tags == 'success' %}success{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Enter Username" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="link">
+        <a href="/register">Create an account</a><br><br>
+        <a href="/forgot-password">Forgot Password?</a>
+    </div>
+
+</div>
+</body>
+</html>

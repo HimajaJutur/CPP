@@ -1,0 +1,38 @@
+{% extends "buddy/base.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div style="padding:40px;">
+
+<div style="
+    background:white;
+    width:60%;
+    margin:auto;
+    padding:30px;
+    border-radius:14px;
+    box-shadow:0 4px 20px rgba(0,0,0,0.12);
+">
+
+    <h2 style="text-align:center; color:#0058ff; margin-bottom:20px;">
+        👤 User Profile
+    </h2>
+
+    <p><b>Username:</b> {{ request.session.username }}</p>
+    <p><b>Email:</b> {{ request.session.email }}</p>
+
+    <hr style="margin:20px 0;">
+
+    <div style="text-align:center;">
+        <a href="/history" style="
+            padding:12px 25px;
+            background:#0058ff;
+            color:white;
+            border-radius:8px;
+            text-decoration:none;
+        ">📄 View My Bookings</a>
+    </div>
+
+</div>
+
+</div>
+{% endblock %}

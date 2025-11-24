@@ -1,0 +1,21 @@
+{% extends "buddy/base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="container" style="padding:40px; text-align:center;">
+    <div class="card" style="background:white; padding:25px 35px; 
+        display:inline-block; border-radius:12px; 
+        box-shadow:0 6px 14px rgba(0,0,0,0.1);">
+
+        <h2>Welcome, {{ request.session.username }} 👋</h2>
+        <p>Book and manage your transport tickets easily.</p>
+
+        <div class="menu">
+            <a href="/book-ticket" class="btn">🚌 Book Transport Ticket</a>
+            <a href="/history" class="btn">📄 View Travel History</a>
+            <a href="/alerts" class="btn">🔔 Transport Alerts</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
