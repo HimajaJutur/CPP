@@ -1,0 +1,607 @@
+{
+    "Items": [
+        {
+            "departure_time": {
+                "S": "09:30"
+            },
+            "destination": {
+                "S": "Cork"
+            },
+            "fare": {
+                "N": "28"
+            },
+            "source": {
+                "S": "Galway"
+            },
+            "route_id": {
+                "S": "R9003"
+            },
+            "arrival_time": {
+                "S": "13:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "16:00"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "21"
+            },
+            "source": {
+                "S": "Limerick"
+            },
+            "route_id": {
+                "S": "R6002"
+            },
+            "arrival_time": {
+                "S": "19:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "17:30"
+            },
+            "destination": {
+                "S": "Cork"
+            },
+            "fare": {
+                "N": "12"
+            },
+            "source": {
+                "S": "Waterford"
+            },
+            "route_id": {
+                "S": "R9302"
+            },
+            "arrival_time": {
+                "S": "19:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "07:30"
+            },
+            "destination": {
+                "S": "Galway"
+            },
+            "fare": {
+                "N": "22"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R3001"
+            },
+            "arrival_time": {
+                "S": "10:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "14:30"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "20"
+            },
+            "source": {
+                "S": "Belfast"
+            },
+            "route_id": {
+                "S": "R9402"
+            },
+            "arrival_time": {
+                "S": "16:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "08:00"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "19"
+            },
+            "source": {
+                "S": "Waterford"
+            },
+            "route_id": {
+                "S": "R8001"
+            },
+            "arrival_time": {
+                "S": "10:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "08:00"
+            },
+            "destination": {
+                "S": "Cork"
+            },
+            "fare": {
+                "N": "25"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R1001"
+            },
+            "arrival_time": {
+                "S": "11:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "09:00"
+            },
+            "destination": {
+                "S": "Waterford"
+            },
+            "fare": {
+                "N": "12"
+            },
+            "source": {
+                "S": "Cork"
+            },
+            "route_id": {
+                "S": "R9301"
+            },
+            "arrival_time": {
+                "S": "11:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "17:00"
+            },
+            "destination": {
+                "S": "Limerick"
+            },
+            "fare": {
+                "N": "21"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R5002"
+            },
+            "arrival_time": {
+                "S": "20:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "18:00"
+            },
+            "destination": {
+                "S": "Waterford"
+            },
+            "fare": {
+                "N": "19"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R7002"
+            },
+            "arrival_time": {
+                "S": "20:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "08:00"
+            },
+            "destination": {
+                "S": "Galway"
+            },
+            "fare": {
+                "N": "28"
+            },
+            "source": {
+                "S": "Cork"
+            },
+            "route_id": {
+                "S": "R9001"
+            },
+            "arrival_time": {
+                "S": "11:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "10:00"
+            },
+            "destination": {
+                "S": "Waterford"
+            },
+            "fare": {
+                "N": "19"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R7001"
+            },
+            "arrival_time": {
+                "S": "12:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "11:00"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "22"
+            },
+            "source": {
+                "S": "Galway"
+            },
+            "route_id": {
+                "S": "R4001"
+            },
+            "arrival_time": {
+                "S": "14:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "09:00"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "25"
+            },
+            "source": {
+                "S": "Cork"
+            },
+            "route_id": {
+                "S": "R2001"
+            },
+            "arrival_time": {
+                "S": "12:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "15:00"
+            },
+            "destination": {
+                "S": "Galway"
+            },
+            "fare": {
+                "N": "28"
+            },
+            "source": {
+                "S": "Cork"
+            },
+            "route_id": {
+                "S": "R9002"
+            },
+            "arrival_time": {
+                "S": "18:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "08:30"
+            },
+            "destination": {
+                "S": "Limerick"
+            },
+            "fare": {
+                "N": "20"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R1201"
+            },
+            "arrival_time": {
+                "S": "11:15"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "14:00"
+            },
+            "destination": {
+                "S": "Limerick"
+            },
+            "fare": {
+                "N": "19"
+            },
+            "source": {
+                "S": "Waterford"
+            },
+            "route_id": {
+                "S": "R9202"
+            },
+            "arrival_time": {
+                "S": "16:45"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "18:30"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "22"
+            },
+            "source": {
+                "S": "Galway"
+            },
+            "route_id": {
+                "S": "R4002"
+            },
+            "arrival_time": {
+                "S": "21:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "17:00"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "19"
+            },
+            "source": {
+                "S": "Waterford"
+            },
+            "route_id": {
+                "S": "R8002"
+            },
+            "arrival_time": {
+                "S": "19:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "07:45"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "21"
+            },
+            "source": {
+                "S": "Limerick"
+            },
+            "route_id": {
+                "S": "R6001"
+            },
+            "arrival_time": {
+                "S": "10:45"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "07:45"
+            },
+            "destination": {
+                "S": "Limerick"
+            },
+            "fare": {
+                "N": "15"
+            },
+            "source": {
+                "S": "Galway"
+            },
+            "route_id": {
+                "S": "R9101"
+            },
+            "arrival_time": {
+                "S": "09:15"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "10:00"
+            },
+            "destination": {
+                "S": "Galway"
+            },
+            "fare": {
+                "N": "22"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R1101"
+            },
+            "arrival_time": {
+                "S": "12:40"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "17:15"
+            },
+            "destination": {
+                "S": "Limerick"
+            },
+            "fare": {
+                "N": "15"
+            },
+            "source": {
+                "S": "Galway"
+            },
+            "route_id": {
+                "S": "R9102"
+            },
+            "arrival_time": {
+                "S": "18:45"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "11:00"
+            },
+            "destination": {
+                "S": "Galway"
+            },
+            "fare": {
+                "N": "15"
+            },
+            "source": {
+                "S": "Limerick"
+            },
+            "route_id": {
+                "S": "R9103"
+            },
+            "arrival_time": {
+                "S": "12:30"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "10:00"
+            },
+            "destination": {
+                "S": "Belfast"
+            },
+            "fare": {
+                "N": "20"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R9401"
+            },
+            "arrival_time": {
+                "S": "12:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "15:00"
+            },
+            "destination": {
+                "S": "Galway"
+            },
+            "fare": {
+                "N": "22"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R3002"
+            },
+            "arrival_time": {
+                "S": "18:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "09:00"
+            },
+            "destination": {
+                "S": "Limerick"
+            },
+            "fare": {
+                "N": "21"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R5001"
+            },
+            "arrival_time": {
+                "S": "12:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "17:00"
+            },
+            "destination": {
+                "S": "Dublin"
+            },
+            "fare": {
+                "N": "25"
+            },
+            "source": {
+                "S": "Cork"
+            },
+            "route_id": {
+                "S": "R2002"
+            },
+            "arrival_time": {
+                "S": "20:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "14:00"
+            },
+            "destination": {
+                "S": "Cork"
+            },
+            "fare": {
+                "N": "25"
+            },
+            "source": {
+                "S": "Dublin"
+            },
+            "route_id": {
+                "S": "R1002"
+            },
+            "arrival_time": {
+                "S": "17:00"
+            }
+        },
+        {
+            "departure_time": {
+                "S": "08:00"
+            },
+            "destination": {
+                "S": "Waterford"
+            },
+            "fare": {
+                "N": "19"
+            },
+            "source": {
+                "S": "Limerick"
+            },
+            "route_id": {
+                "S": "R9201"
+            },
+            "arrival_time": {
+                "S": "10:45"
+            }
+        }
+    ],
+    "Count": 30,
+    "ScannedCount": 30,
+    "ConsumedCapacity": null
+}

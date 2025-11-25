@@ -1,0 +1,291 @@
+{
+  "TicketBuddy_Schedules": [
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R1001"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Cork"},
+        "departure_time": {"S": "08:00"},
+        "arrival_time": {"S": "11:00"},
+        "fare": {"N": "25"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R1002"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Cork"},
+        "departure_time": {"S": "14:00"},
+        "arrival_time": {"S": "17:00"},
+        "fare": {"N": "25"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R2001"},
+        "source": {"S": "Cork"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "09:00"},
+        "arrival_time": {"S": "12:00"},
+        "fare": {"N": "25"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R2002"},
+        "source": {"S": "Cork"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "17:00"},
+        "arrival_time": {"S": "20:00"},
+        "fare": {"N": "25"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R3001"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Galway"},
+        "departure_time": {"S": "07:30"},
+        "arrival_time": {"S": "10:30"},
+        "fare": {"N": "22"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R3002"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Galway"},
+        "departure_time": {"S": "15:00"},
+        "arrival_time": {"S": "18:00"},
+        "fare": {"N": "22"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R4001"},
+        "source": {"S": "Galway"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "11:00"},
+        "arrival_time": {"S": "14:00"},
+        "fare": {"N": "22"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R4002"},
+        "source": {"S": "Galway"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "18:30"},
+        "arrival_time": {"S": "21:30"},
+        "fare": {"N": "22"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R5001"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Limerick"},
+        "departure_time": {"S": "09:00"},
+        "arrival_time": {"S": "12:00"},
+        "fare": {"N": "21"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R5002"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Limerick"},
+        "departure_time": {"S": "17:00"},
+        "arrival_time": {"S": "20:00"},
+        "fare": {"N": "21"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R6001"},
+        "source": {"S": "Limerick"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "07:45"},
+        "arrival_time": {"S": "10:45"},
+        "fare": {"N": "21"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R6002"},
+        "source": {"S": "Limerick"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "16:00"},
+        "arrival_time": {"S": "19:00"},
+        "fare": {"N": "21"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R7001"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Waterford"},
+        "departure_time": {"S": "10:00"},
+        "arrival_time": {"S": "12:30"},
+        "fare": {"N": "19"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R7002"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Waterford"},
+        "departure_time": {"S": "18:00"},
+        "arrival_time": {"S": "20:30"},
+        "fare": {"N": "19"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R8001"},
+        "source": {"S": "Waterford"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "08:00"},
+        "arrival_time": {"S": "10:30"},
+        "fare": {"N": "19"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R8002"},
+        "source": {"S": "Waterford"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "17:00"},
+        "arrival_time": {"S": "19:30"},
+        "fare": {"N": "19"}
+      }}
+    },
+
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9001"},
+        "source": {"S": "Cork"},
+        "destination": {"S": "Galway"},
+        "departure_time": {"S": "08:00"},
+        "arrival_time": {"S": "11:30"},
+        "fare": {"N": "28"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9002"},
+        "source": {"S": "Cork"},
+        "destination": {"S": "Galway"},
+        "departure_time": {"S": "15:00"},
+        "arrival_time": {"S": "18:30"},
+        "fare": {"N": "28"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9003"},
+        "source": {"S": "Galway"},
+        "destination": {"S": "Cork"},
+        "departure_time": {"S": "09:30"},
+        "arrival_time": {"S": "13:00"},
+        "fare": {"N": "28"}
+      }}
+    },
+
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9101"},
+        "source": {"S": "Galway"},
+        "destination": {"S": "Limerick"},
+        "departure_time": {"S": "07:45"},
+        "arrival_time": {"S": "09:15"},
+        "fare": {"N": "15"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9102"},
+        "source": {"S": "Galway"},
+        "destination": {"S": "Limerick"},
+        "departure_time": {"S": "17:15"},
+        "arrival_time": {"S": "18:45"},
+        "fare": {"N": "15"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9103"},
+        "source": {"S": "Limerick"},
+        "destination": {"S": "Galway"},
+        "departure_time": {"S": "11:00"},
+        "arrival_time": {"S": "12:30"},
+        "fare": {"N": "15"}
+      }}
+    },
+
+
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9201"},
+        "source": {"S": "Limerick"},
+        "destination": {"S": "Waterford"},
+        "departure_time": {"S": "08:00"},
+        "arrival_time": {"S": "10:45"},
+        "fare": {"N": "19"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9202"},
+        "source": {"S": "Waterford"},
+        "destination": {"S": "Limerick"},
+        "departure_time": {"S": "14:00"},
+        "arrival_time": {"S": "16:45"},
+        "fare": {"N": "19"}
+      }}
+    },
+
+
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9301"},
+        "source": {"S": "Cork"},
+        "destination": {"S": "Waterford"},
+        "departure_time": {"S": "09:00"},
+        "arrival_time": {"S": "11:00"},
+        "fare": {"N": "12"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9302"},
+        "source": {"S": "Waterford"},
+        "destination": {"S": "Cork"},
+        "departure_time": {"S": "17:30"},
+        "arrival_time": {"S": "19:30"},
+        "fare": {"N": "12"}
+      }}
+    },
+
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9401"},
+        "source": {"S": "Dublin"},
+        "destination": {"S": "Belfast"},
+        "departure_time": {"S": "10:00"},
+        "arrival_time": {"S": "12:00"},
+        "fare": {"N": "20"}
+      }}
+    },
+    {
+      "PutRequest": { "Item": {
+        "route_id": {"S": "R9402"},
+        "source": {"S": "Belfast"},
+        "destination": {"S": "Dublin"},
+        "departure_time": {"S": "14:30"},
+        "arrival_time": {"S": "16:30"},
+        "fare": {"N": "20"}
+      }}
+    }
+  ]
+}

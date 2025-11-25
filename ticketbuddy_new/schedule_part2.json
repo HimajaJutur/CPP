@@ -1,0 +1,44 @@
+{
+  "TicketBuddy_Schedules": [
+    { "PutRequest": { "Item": {
+      "route_id": {"S": "R9202"},
+      "source": {"S": "Waterford"},
+      "destination": {"S": "Limerick"},
+      "departure_time": {"S": "14:00"},
+      "arrival_time": {"S": "16:45"},
+      "fare": {"N": "19"}
+    }}},
+    { "PutRequest": { "Item": {
+      "route_id": {"S": "R9301"},
+      "source": {"S": "Cork"},
+      "destination": {"S": "Waterford"},
+      "departure_time": {"S": "09:00"},
+      "arrival_time": {"S": "11:00"},
+      "fare": {"N": "12"}
+    }}},
+    { "PutRequest": { "Item": {
+      "route_id": {"S": "R9302"},
+      "source": {"S": "Waterford"},
+      "destination": {"S": "Cork"},
+      "departure_time": {"S": "17:30"},
+      "arrival_time": {"S": "19:30"},
+      "fare": {"N": "12"}
+    }}},
+    { "PutRequest": { "Item": {
+      "route_id": {"S": "R9401"},
+      "source": {"S": "Dublin"},
+      "destination": {"S": "Belfast"},
+      "departure_time": {"S": "10:00"},
+      "arrival_time": {"S": "12:00"},
+      "fare": {"N": "20"}
+    }}},
+    { "PutRequest": { "Item": {
+      "route_id": {"S": "R9402"},
+      "source": {"S": "Belfast"},
+      "destination": {"S": "Dublin"},
+      "departure_time": {"S": "14:30"},
+      "arrival_time": {"S": "16:30"},
+      "fare": {"N": "20"}
+    }}}
+  ]
+}

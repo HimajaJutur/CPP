@@ -1,90 +1,135 @@
 {% extends "buddy/base.html" %}
-
 {% block title %}Book Ticket{% endblock %}
-
 {% block content %}
 <body style="background:#f2f7f2;">
 
 {% if messages %}
-    <div style="background:#d1ffd1; color:#006600; padding:10px; width:60%; margin:20px auto; border-radius:6px; text-align:center;">
-        {% for message in messages %}
-            {{ message }}
-        {% endfor %}
-    </div>
+  <div style="background:#d1ffd1; color:#006600; padding:10px; width:60%; margin:20px auto; border-radius:6px; text-align:center;">
+    {% for message in messages %}{{ message }}{% endfor %}
+  </div>
 {% endif %}
 
-<div class="card" style="
-    background:white;
-    width:80%;
-    margin:40px auto;
-    padding:30px;
-    border-radius:14px;
-    box-shadow:0 4px 18px rgba(0,0,0,0.12);
-">
+<div class="card" style="background:white; width:80%; margin:40px auto; padding:30px; border-radius:14px; box-shadow:0 4px 18px rgba(0,0,0,0.12);">
+  <h2 style="text-align:center; color:#0f8c2f; margin-bottom:25px;">Plan Your Journey</h2>
 
-    <h2 style="text-align:center; color:#0f8c2f; margin-bottom:25px;">Plan Your Journey</h2>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="route" value="{{ prefill.route }}">
+    <input type="hidden" id="hidden_fare" name="fare" value="{{ prefill.fare }}">
+    <input type="hidden" id="selected_seats" name="selected_seats" value="">
+    <input type="hidden" name="departure_time" value="{{ prefill.departure_time }}">
+    <input type="hidden" name="arrival_time" value="{{ prefill.arrival_time }}">
 
-    <form method="POST">
-        {% csrf_token %}
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px;">
+      <select name="from" required style="padding:12px; border-radius:6px;">
+        <option value="">{{ prefill.from|default:"Travel From" }}</option>
+        <option {% if prefill.from == "Dublin" %}selected{% endif %}>Dublin</option>
+        <option {% if prefill.from == "Cork" %}selected{% endif %}>Cork</option>
+        <option {% if prefill.from == "Galway" %}selected{% endif %}>Galway</option>
+        <option {% if prefill.from == "Limerick" %}selected{% endif %}>Limerick</option>
+        <option {% if prefill.from == "Waterford" %}selected{% endif %}>Waterford</option>
+        <option {% if prefill.from == "Belfast" %}selected{% endif %}>Belfast</option>
+      </select>
 
-        <div style="
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:20px;
-            margin-top:20px;
-        ">
+      <select name="to" required style="padding:12px; border-radius:6px;">
+        <option value="">{{ prefill.to|default:"Travel To" }}</option>
+        <option {% if prefill.to == "Dublin" %}selected{% endif %}>Dublin</option>
+        <option {% if prefill.to == "Cork" %}selected{% endif %}>Cork</option>
+        <option {% if prefill.to == "Galway" %}selected{% endif %}>Galway</option>
+        <option {% if prefill.to == "Limerick" %}selected{% endif %}>Limerick</option>
+        <option {% if prefill.to == "Waterford" %}selected{% endif %}>Waterford</option>
+        <option {% if prefill.to == "Belfast" %}selected{% endif %}>Belfast</option>
+      </select>
 
-            <select name="from" required style="padding:12px; border-radius:6px;">
-                <option value="">Travel From</option>
-                <option>Dublin</option>
-                <option>Cork</option>
-                <option>Galway</option>
-                <option>Limerick</option>
-            </select>
+      <select name="ticket_type" required style="padding:12px; border-radius:6px;">
+        <option value="">Ticket Type</option>
+        <option>One Way</option>
+        <option>Return</option>
+      </select>
 
-            <select name="to" required style="padding:12px; border-radius:6px;">
-                <option value="">Travel To</option>
-                <option>Dublin</option>
-                <option>Cork</option>
-                <option>Galway</option>
-                <option>Limerick</option>
-            </select>
+      <input type="number" id="passengers" name="passengers" min="1" placeholder="Passengers" required style="padding:12px; border-radius:6px;">
 
-            <select name="ticket_type" required style="padding:12px; border-radius:6px;">
-                <option value="">Ticket Type</option>
-                <option>One Way</option>
-                <option>Return</option>
-            </select>
-
-            <input type="number" name="passengers" placeholder="No. of Passengers" min="1"
-                   required style="padding:12px; border-radius:6px;">
-
-            <input type="date" name="departure_date" required
-                   style="padding:12px; border-radius:6px;">
-
-            <input type="date" name="return_date"
-                   style="padding:12px; border-radius:6px;" placeholder="Return Date (optional)">
-        </div>
-
-        <div style="text-align:center; margin-top:35px;">
-            <button type="submit" style="
-                background:#0f8c2f;
-                color:white;
-                padding:15px 40px;
-                font-size:18px;
-                border-radius:8px;
-                border:none;
-                cursor:pointer;
-            ">Book Tickets</button>
-        </div>
-
-    </form>
-
-    <div style="text-align:center; margin-top:20px;">
-        <a href="/" style="color:#0f8c2f; text-decoration:none;">← Back to Dashboard</a>
+      <input type="date" name="departure_date" required style="padding:12px; border-radius:6px;">
+      <input type="date" name="return_date" style="padding:12px; border-radius:6px;">
     </div>
 
+    {% if prefill.departure_time %}
+    <div style="margin-top:25px; background:#e8ffe8; padding:15px; border-radius:8px;">
+      <h3 style="color:#0f8c2f;">Selected Bus</h3>
+      <p><b>Route ID:</b> {{ prefill.route }}</p>
+      <p><b>Departure:</b> {{ prefill.departure_time }}</p>
+      <p><b>Arrival:</b> {{ prefill.arrival_time }}</p>
+      <p><b>Fare per Seat:</b> €{{ prefill.fare }}</p>
+    </div>
+    {% endif %}
+
+    <h3 style="margin-top:30px; text-align:center; color:#0f8c2f;">Select Your Seats</h3>
+
+    <style>
+      .seat{ width:36px;height:36px;margin:6px;display:inline-block;border-radius:6px;line-height:36px;color:white;cursor:pointer;text-align:center}
+      .available{background:#0f8c2f}
+      .selected{background:#0055aa}
+      .booked{background:#cc0000;cursor:not-allowed}
+      .seat-row{margin-bottom:8px}
+    </style>
+
+    <div id="seat-area" style="width:80%; margin:18px auto; text-align:center;">
+      {% for r in "ABCDEF" %}
+        <div class="seat-row">
+          {% for n in "12345" %}
+            {% with seat=r|stringformat:"s"|add:n %}
+              <div id="{{ seat }}" class="seat {% if seat in booked %}booked{% else %}available{% endif %}" onclick="toggleSeat('{{ seat }}')">
+                {{ seat }}
+              </div>
+            {% endwith %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <h3 style="text-align:center;">Total Fare: €<span id="total_fare">0.00</span></h3>
+
+    <div style="text-align:center; margin-top:22px;">
+      <button type="submit" style="background:#0f8c2f;color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:16px;">Book Tickets</button>
+    </div>
+  </form>
+
+  <div style="text-align:center; margin-top:16px;"><a href="/" style="color:#0f8c2f;">← Back to Dashboard</a></div>
 </div>
+
+<script>
+  const baseFare = parseFloat(document.getElementById("hidden_fare").value || 0);
+  let selected = [];
+
+  function updateUI(){
+    document.getElementById("selected_seats").value = selected.join(",");
+    document.getElementById("passengers").value = selected.length || 1;
+    const total = (baseFare * (selected.length || 1));
+    document.getElementById("total_fare").innerText = total.toFixed(2);
+    // set hidden fare final
+    document.getElementById("hidden_fare").value = total;
+  }
+
+  function toggleSeat(seatId){
+    const el = document.getElementById(seatId);
+    if(!el || el.classList.contains("booked")) return;
+    if(el.classList.contains("selected")){
+      el.classList.remove("selected");
+      el.classList.add("available");
+      selected = selected.filter(s=>s!==seatId);
+    } else {
+      el.classList.remove("available");
+      el.classList.add("selected");
+      selected.push(seatId);
+    }
+    updateUI();
+  }
+
+  // initialize totals if there are preselected values
+  document.addEventListener("DOMContentLoaded", function(){
+    updateUI();
+  });
+</script>
 
 </body>
 {% endblock %}

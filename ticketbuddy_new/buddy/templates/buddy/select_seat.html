@@ -1,0 +1,72 @@
+{% extends "buddy/base.html" %}
+{% block title %}Select Seats{% endblock %}
+
+{% block content %}
+
+<style>
+.seat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    gap: 12px;
+    margin: 30px auto;
+    width: 260px;
+}
+.seat {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+}
+.available { background: #28a745; color: white; }
+.booked { background: #d9534f; color: white; cursor: not-allowed; }
+.selected { background: #ffcc00; color: black; }
+</style>
+
+<h2 style="text-align:center;">Select Your Seats</h2>
+
+<div class="seat-grid">
+    {% for s in seats %}
+        <div class="seat 
+             {% if s.is_booked %}booked{% else %}available{% endif %}"
+             data-seat="{{ s.seat_no }}">
+            {{ s.seat_no }}
+        </div>
+    {% endfor %}
+</div>
+
+<div style="text-align:center;">
+    <button id="confirmBtn" style="padding:12px 25px; font-size:16px;">Continue</button>
+</div>
+
+<script>
+let selected = [];
+
+document.querySelectorAll(".seat.available").forEach(seat => {
+    seat.addEventListener("click", () => {
+        let sn = seat.dataset.seat;
+
+        if (selected.includes(sn)) {
+            selected = selected.filter(s => s !== sn);
+            seat.classList.remove("selected");
+        } else {
+            selected.push(sn);
+            seat.classList.add("selected");
+        }
+    });
+});
+
+document.getElementById("confirmBtn").onclick = () => {
+    if (selected.length === 0) {
+        alert("Please select at least one seat!");
+        return;
+    }
+
+    let seats_str = selected.join(",");
+
+    // redirect to booking page with seat details
+    window.location.href = "/book-ticket?seats=" + seats_str + "&route={{ route_id }}";
+};
+</script>
+
+{% endblock %}

@@ -13,4 +13,8 @@ urlpatterns = [
     path('book-ticket/', views.book_ticket_page, name="book-ticket"),
     path('history/', views.history_page, name="history"),
     path('alerts/', views.alerts_page, name="alerts"),
+    path('cancel/<str:booking_id>/', views.cancel_ticket, name="cancel-ticket"),
+    path("schedules/", views.schedules_page, name="schedules"),
+    path('select-seat/', views.select_seat_page, name="select-seat"),
 ]
+    

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Transport Schedules</title>
+    <style>
+        body { font-family: Arial; background: #eef3ff; margin: 0; padding: 0; }
+        header { background: #0058ff; color: white; padding: 18px; text-align: center; font-size: 24px; font-weight: bold; }
+
+        .card {
+            background: white; width: 80%; margin: 30px auto; padding: 25px;
+            border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 { text-align: center; color: #0058ff; }
+
+        .form-row { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
+        select, input {
+            padding: 12px; font-size: 16px; width: 200px;
+            border: 1px solid #ccc; border-radius: 6px;
+        }
+        button {
+            background: #0058ff; color: white; border: none;
+            padding: 12px 30px; border-radius: 6px; cursor: pointer; font-size: 18px;
+        }
+
+        table {
+            width: 90%; margin: 25px auto; border-collapse: collapse; background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: #0058ff; color: white; padding: 12px;
+        }
+
+        td {
+            padding: 12px; border-bottom: 1px solid #ddd; text-align: center;
+        }
+
+        .book-btn {
+            background: #28a745; padding: 8px 15px; color: white; border-radius: 6px; text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>🚍 Check Transport Schedules</header>
+
+<div class="card">
+    <h2>Select Route</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-row">
+            <select name="from" required>
+                <option value="">From</option>
+                <option>Dublin</option>
+                <option>Cork</option>
+                <option>Galway</option>
+                <option>Limerick</option>
+            </select>
+
+            <select name="to" required>
+                <option value="">To</option>
+                <option>Dublin</option>
+                <option>Cork</option>
+                <option>Galway</option>
+                <option>Limerick</option>
+            </select>
+
+            <input type="date" name="date" required>
+        </div>
+
+        <div style="text-align:center">
+            <button type="submit">Show Schedules</button>
+        </div>
+    </form>
+</div>
+
+{% if schedules %}
+<table>
+    <tr>
+        <th>Departure</th>
+        <th>Arrival</th>
+        <th>Type</th>
+        <th>Action</th>
+    </tr>
+
+    {% for s in schedules %}
+    <tr>
+        <td>{{ s.departure_time }}</td>
+        <td>{{ s.arrival_time }}</td>
+        <td>€{{ s.fare }}</td>
+        <td>
+            <a class="book-btn" href="/book-ticket?from={{ s.source }}&to={{ s.destination }}&time={{ s.departure_time }}&arrival={{ s.arrival_time }}&fare={{ s.fare }}&route={{ s.route_id }}">
+              Book
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+
+</body>
+</html>

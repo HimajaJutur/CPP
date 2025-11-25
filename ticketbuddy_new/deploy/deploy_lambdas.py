@@ -9,7 +9,12 @@ LAMBDA_DIR = "../lambda_deploy"
 FUNCTIONS = {
     "TicketBuddy_BookTicket": "book_ticket.py",
     "TicketBuddy_GetHistory": "get_history.py",
-    "TicketBuddy_CreateAlert": "create_alert.py"
+    "TicketBuddy_CreateAlert": "create_alert.py",
+    "TicketBuddy_CancelTicket": "cancel_ticket.py",
+    "TicketBuddy_GetSchedules": "get_schedules.py",
+    "TicketBuddy_SeedSeats": "seed_seats.py",
+    "TicketBuddy_GetSeats": "get_seats.py",
+    "TicketBuddy_UpdateSeat": "update_seat.py",
 }
 
 lambda_client = boto3.client("lambda")
