@@ -17,30 +17,41 @@ def lambda_handler(event, context):
     """
 
     route = event.get("route_id")
+    dep_time = event.get("departure_time") 
     seats = event.get("seats", [])
     booking_id = event.get("booking_id") or str(uuid.uuid4())
 
-    if not route or not seats:
-        return {"status": "error", "message": "Missing route_id or seats"}
+    if not route or not dep_time:
+        return {"status": "error", "message": "Missing route_id or departure_time"}
+        
+    if not seats:
+        return {"status": "error", "message": "Missing seats"}
 
     try:
-        # 1) Check if seats already booked
+        
+          # Build seat keys
         for seat in seats:
+            composite = f"{dep_time}#{seat}"
+            
+            
+            # Check conflict
             resp = SEATS.get_item(
-                Key={"route_id": route, "seat_no": seat}   # FIXED
+                Key={"route_id": route, "departure_time_seat": composite}   # FIXED
             )
-            if "Item" in resp:
+            if "Item" in resp and resp["Item"]["status"] == "BOOKED":
                 return {
                     "status": "error",
                     "message": f"Seat already booked: {seat}",
                     "conflict": seat
                 }
-
-        # 2) Book each seat
+ # No conflicts → insert all
         for seat in seats:
+            composite = f"{dep_time}#{seat}"
             SEATS.put_item(
                 Item={
                     "route_id": route,
+                    "departure_time_seat": composite,
+                    "departure_time": dep_time,
                     "seat_no": seat,     # FIXED
                     "status": "BOOKED",
                     "booking_id": booking_id
@@ -53,7 +64,6 @@ def lambda_handler(event, context):
             "booked": seats
         }
 
-    except ClientError as e:
-        return {"status": "error", "message": str(e)}
+    
     except Exception as e:
         return {"status": "error", "message": str(e)}

@@ -136,7 +136,7 @@ def book_ticket_page(request):
 
         # 1) If seats chosen, call UpdateSeat lambda
         if selected_seats and route:
-            seat_payload = {"route_id": route, "seats": selected_seats}
+            seat_payload = {"route_id": route,  "departure_time": request.POST.get("departure_time"), "seats": selected_seats}
             seat_resp = lambda_client.invoke(
                 FunctionName="TicketBuddy_UpdateSeat",
                 InvocationType="RequestResponse",
@@ -197,7 +197,7 @@ def book_ticket_page(request):
     route_key = prefill.get("route")
     if route_key:
         try:
-            seat_resp = lambda_client.invoke(FunctionName="TicketBuddy_GetSeatStatus", InvocationType="RequestResponse", Payload=json.dumps({"route_id": route_key}))
+            seat_resp = lambda_client.invoke(FunctionName="TicketBuddy_GetSeatStatus", InvocationType="RequestResponse", Payload=json.dumps({"route_id": route_key, "departure_time": prefill.get("departure_time")}))
             seat_result = json.loads(seat_resp["Payload"].read())
             if seat_result.get("status") == "success":
                 booked = seat_result.get("booked_seats", [])
@@ -291,3 +291,25 @@ def select_seat_page(request):
         "route_id": route_id,
         "seats": seats
     })
+    
+    
+def destinations_page(request):
+    # Call Lambda without any filters → fetch ALL routes
+    payload = {}
+
+    response = lambda_client.invoke(
+        FunctionName="TicketBuddy_GetSchedules",
+        InvocationType="RequestResponse",
+        Payload=json.dumps(payload)
+    )
+
+    result = json.loads(response["Payload"].read())
+
+    # Lambda returns { statusCode, body }
+    schedules = json.loads(result.get("body", "[]"))
+
+    return render(request, "buddy/destinations.html", {"schedules": schedules})
+
+
+def contact_page(request):
+    return render(request, "buddy/contact.html")

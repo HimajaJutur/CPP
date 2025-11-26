@@ -1,0 +1,68 @@
+{% extends "buddy/base.html" %}
+{% block title %}All Destinations{% endblock %}
+
+{% block content %}
+
+<style>
+.route-card {
+    background: white;
+    padding: 18px;
+    margin: 12px auto;
+    width: 70%;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+.route-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #0058ff;
+}
+.route-info {
+    margin: 6px 0;
+    font-size: 16px;
+}
+.book-btn {
+    display: inline-block;
+    margin-top: 12px;
+    padding: 10px 20px;
+    background: #ffd43b;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
+.book-btn:hover { background: #ffca2c; }
+</style>
+
+<h2 style="text-align:center; margin-top:20px; color:#0058ff;">All Bus Routes</h2>
+
+{% if schedules %}
+    {% for r in schedules %}
+        <div class="route-card">
+            <div class="route-title">
+                {{ r.source }} → {{ r.destination }}
+            </div>
+
+            <div class="route-info">
+                🚌 Route ID: <b>{{ r.route_id }}</b>
+            </div>
+            <div class="route-info">
+                🕒 Departure: <b>{{ r.departure_time }}</b>
+            </div>
+            <div class="route-info">
+                🕓 Arrival: <b>{{ r.arrival_time }}</b>
+            </div>
+            <div class="route-info">
+                💶 Price: <b>€{{ r.fare }}</b>
+            </div>
+
+            <a href="/book-ticket?from={{ r.source }}&to={{ r.destination }}&route={{ r.route_id }}&time={{ r.departure_time }}&arrival={{ r.arrival_time }}&fare={{ r.fare }}" class="book-btn">
+                Book Now →
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <p style="text-align:center; color:gray; margin-top:40px;">No routes found.</p>
+{% endif %}
+
+{% endblock %}

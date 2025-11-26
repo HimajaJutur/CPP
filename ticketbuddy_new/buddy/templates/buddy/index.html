@@ -1,21 +1,114 @@
 {% extends "buddy/base.html" %}
+{% load static %}
 
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="container" style="padding:40px; text-align:center;">
-    <div class="card" style="background:white; padding:25px 35px; 
-        display:inline-block; border-radius:12px; 
-        box-shadow:0 6px 14px rgba(0,0,0,0.1);">
 
-        <h2>Welcome, {{ request.session.username }} 👋</h2>
-        <p>Book and manage your transport tickets easily.</p>
+<style>
 
-        <div class="menu">
-            <a href="/book-ticket" class="btn">🚌 Book Transport Ticket</a>
-            <a href="/history" class="btn">📄 View Travel History</a>
-            <a href="/alerts" class="btn">🔔 Transport Alerts</a>
+    .section-bg {
+        width: 100%;
+        min-height: 78vh;
+        background-image: url("{% static 'images/bus.jpeg' %}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    
+    /* Soft overlay for readability */
+    .section-bg::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(
+            rgba(0,0,0,0.15),
+            rgba(0,0,0,0.45)
+        );
+        z-index: 1;
+    }
+    
+    /* Center Glass Card */
+    .welcome-box {
+        position: relative;
+        z-index: 2;
+        background: rgba(255,255,255,0.25); /* bright glass */
+        backdrop-filter: blur(10px);
+        padding: 45px;
+        border-radius: 18px;
+        width: 50%;
+        border: 1px solid rgba(255,255,255,0.35);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        animation: fadeIn 1.2s ease;
+        
+        
+        
+    }
+    
+    .welcome-title {
+        font-size: 45px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    }
+    
+    .welcome-text {
+        font-size: 20px;
+        margin-bottom: 25px;
+        color: #f2f2f2;
+        text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+    
+    /* Buttons */
+    .action-btn {
+        background: #ffd43b;
+        color: black;
+        padding: 14px 28px;
+        border-radius: 10px;
+        margin: 8px;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+    
+    .action-btn:hover {
+        background: #ffca2c;
+        box-shadow: 0 0 15px rgba(255,255,255,0.9);
+        transform: translateY(-3px);
+    }
+    
+    /* Smooth fade animation */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+
+
+
+</style>
+
+<!-- HERO SECTION -->
+<div class="section-bg">
+    <div class="welcome-box">
+
+        <div class="welcome-title">Welcome, {{ request.session.username }} 👋</div>
+
+        <div class="welcome-text">
+            Book and manage your transport tickets easily.
         </div>
+
+        <a href="/schedules" class="action-btn"> Book Ticket</a>
+        <a href="/history" class="action-btn"> Travel History</a>
+        <a href="/alerts" class="action-btn"> Transport Alerts</a>
+
     </div>
 </div>
+
 {% endblock %}

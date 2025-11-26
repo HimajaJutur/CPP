@@ -16,5 +16,7 @@ urlpatterns = [
     path('cancel/<str:booking_id>/', views.cancel_ticket, name="cancel-ticket"),
     path("schedules/", views.schedules_page, name="schedules"),
     path('select-seat/', views.select_seat_page, name="select-seat"),
+    path("destinations/", views.destinations_page, name="destinations"),
+    path("contact/", views.contact_page, name="contact"),
 ]
     
