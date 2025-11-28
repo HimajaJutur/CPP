@@ -6,6 +6,7 @@ from django.contrib import messages
 import json
 from .fares import FARES
 from .schedules import SCHEDULES
+from buddy.utils.pdf_generator import generate_ticket_pdf, upload_ticket_pdf
 
 
 lambda_client = boto3.client("lambda", region_name="us-east-1")
@@ -176,8 +177,26 @@ def book_ticket_page(request):
         result = json.loads(resp['Payload'].read())
 
         if result.get("status") == "success":
-            messages.success(request, f"Ticket booked successfully! Booking ID: {result.get('booking_id')}")
-            return redirect("history")
+            booking = result.get("item")
+            booking_id = booking["booking_id"]
+
+            # ----- NEW PDF LOGIC -----
+            pdf_buffer = generate_ticket_pdf(booking)
+            filename = f"tickets/{booking_id}.pdf"
+            pdf_url = upload_ticket_pdf(pdf_buffer, filename)
+
+            # save pdf_url into DynamoDB
+            dynamo = boto3.resource("dynamodb")
+            table = dynamo.Table("TicketBuddy_Tickets")
+            table.update_item(
+                Key={"booking_id": booking_id},
+                UpdateExpression="SET pdf_url = :p",
+                ExpressionAttributeValues={":p": pdf_url},
+            )
+            # --------------------------
+
+            messages.success(request, "Ticket booked successfully!")
+            return redirect("/history")
         else:
             messages.error(request, "Failed to book ticket.")
             return redirect("book-ticket")

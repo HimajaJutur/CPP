@@ -29,7 +29,9 @@
             <th>Passengers</th>
             <th>Total Fare (€)</th>
             <th>Status</th>
+            <th>Ticket</th>
             <th>Action</th>
+            
         </tr>
       </thead>
 
@@ -82,6 +84,17 @@
           <td>
               {{ b.status }}
           </td>
+            
+           <td>
+                {% if b.pdf_url %}
+                    <a href="{{ b.pdf_url }}" target="_blank"
+                       style="padding:8px 15px; background:#28a745; color:white; border-radius:6px; text-decoration:none;">
+                       Download
+                    </a>
+                {% else %}
+                    -
+                {% endif %}
+            </td>
 
           <!-- Action -->
           <td>
