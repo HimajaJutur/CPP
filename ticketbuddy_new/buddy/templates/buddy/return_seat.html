@@ -1,0 +1,99 @@
+{% extends "buddy/base.html" %}
+{% block title %}Return – Select Seats{% endblock %}
+{% block content %}
+<div class="card" style="width:80%; margin:40px auto;">
+  <h2 style="text-align:center; color:#0f8c2f;">Return Trip — Select Seats</h2>
+<style>
+  .seat {
+      width: 38px;
+      height: 38px;
+      display: inline-block;
+      margin: 6px;
+      border-radius: 6px;
+      line-height: 38px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: center;
+      color: white;
+  }
+  .available { background: #0f8c2f; }
+  .selected  { background: #0055aa; }
+  .booked    { background: #cc0000; cursor: not-allowed; }
+</style>
+  <form method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="route" value="{{ prefill.route }}">
+    <input type="hidden" name="from" value="{{ prefill.from }}">
+    <input type="hidden" name="to" value="{{ prefill.to }}">
+    <input type="hidden" name="fare" value="{{ prefill.fare }}">
+    <input type="hidden" name="departure_time" value="{{ prefill.departure_time }}">
+    <input type="hidden" name="arrival_time" value="{{ prefill.arrival_time }}">
+    <input type="hidden" name="outbound_id" value="{{ prefill.outbound_id }}">
+    <input type="hidden" id="selected_seats" name="selected_seats" value="">
+    <input type="hidden" name="return_date" value="{{ prefill.return_date }}">
+    <input type="hidden" name="departure_date" value="{{ prefill.return_date }}">
+    <input type="hidden" id="passengers" name="passengers" value="1">
+
+    <!-- show selected bus info -->
+    <div style="background:#e8ffe8; padding:12px; border-radius:8px;">
+      <p><b>Return: </b>{{ prefill.from }} → {{ prefill.to }} on {{ prefill.return_date }}</p>
+      <p><b>Departure:</b> {{ prefill.departure_time }} &nbsp; <b>Arrival:</b> {{ prefill.arrival_time }}</p>
+      <p><b>Fare per seat:</b> €{{ prefill.fare }}</p>
+    </div>
+
+    <h3 style="text-align:center; margin-top:18px;">Select Your Seats</h3>
+
+    <div id="seat-area" style="text-align:center; margin-top:10px;">
+      {% for r in "ABCDEF" %}
+        <div style="margin-bottom:6px;">
+          {% for n in "12345" %}
+            {% with seat=r|stringformat:"s"|add:n %}
+              <div id="{{ seat }}" 
+                 class="seat {% if seat in booked %}booked{% else %}available{% endif %}"
+                 onclick="toggleSeat('{{ seat }}')">
+                {{ seat }}
+            </div>
+            {% endwith %}
+          {% endfor %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <div style="text-align:center; margin-top:20px;">
+      <strong>Total Fare: €<span id="total_fare">0.00</span></strong>
+    </div>
+
+    <div style="text-align:center; margin-top:16px;">
+      <button type="submit" class="btn">Book Return Ticket</button>
+    </div>
+  </form>
+</div>
+
+<script>
+const baseFare = parseFloat("{{ prefill.fare|default:'0' }}");
+let selected = [];
+function updateUI(){
+  document.getElementById("selected_seats").value = selected.join(",");
+  document.getElementById("passengers").value = selected.length || 1;
+  const total = baseFare * (selected.length || 1);
+  document.getElementById("total_fare").innerText = total.toFixed(2);
+}
+function toggleSeat(s){
+  const el = document.getElementById(s);
+  if (selected.includes(s)) {
+    selected = selected.filter(x => x !== s);
+    el.classList.remove("selected");
+    el.classList.add("available");
+} else {
+    selected.push(s);
+    el.classList.remove("available");
+    el.classList.add("selected");
+}
+
+
+  updateUI();
+}
+document.addEventListener("DOMContentLoaded", updateUI);
+</script>
+{% endblock %}

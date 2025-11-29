@@ -38,8 +38,10 @@
         }
 
         .book-btn {
-            background: #28a745; padding: 8px 15px; color: white; border-radius: 6px; text-decoration: none;
+            background: #28a745; padding: 8px 15px; color: white; border-radius: 6px; text-decoration: none
         }
+        
+        .book-btn:hover {background: #218838;}
     </style>
 </head>
 
@@ -69,7 +71,7 @@
                 <option>Limerick</option>
             </select>
 
-            <input type="date" name="date" required>
+            <input type="date" name="date" value="{{ date }}" required>
         </div>
 
         <div style="text-align:center">
@@ -93,9 +95,11 @@
         <td>{{ s.arrival_time }}</td>
         <td>€{{ s.fare }}</td>
         <td>
-            <a class="book-btn" href="/book-ticket?from={{ s.source }}&to={{ s.destination }}&time={{ s.departure_time }}&arrival={{ s.arrival_time }}&fare={{ s.fare }}&route={{ s.route_id }}">
-              Book
+            <a class="book-btn" 
+               href="/book-ticket?from={{ s.source  }}&to={{ s.destination }}&time={{ s.departure_time }}&arrival={{ s.arrival_time }}&fare={{ s.fare }}&route={{ s.route_id }}&date={{ date }}&return_date={{ return_date }}">
+               Book
             </a>
+            
         </td>
     </tr>
     {% endfor %}

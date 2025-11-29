@@ -12,15 +12,20 @@
 <div class="card" style="background:white; width:80%; margin:40px auto; padding:30px; border-radius:14px; box-shadow:0 4px 18px rgba(0,0,0,0.12);">
   <h2 style="text-align:center; color:#0f8c2f; margin-bottom:25px;">Plan Your Journey</h2>
 
+  <!-- 🟢 NORMAL FORM SUBMISSION (POST) -->
   <form method="POST">
     {% csrf_token %}
+
     <input type="hidden" name="route" value="{{ prefill.route }}">
     <input type="hidden" id="hidden_fare" name="fare" value="{{ prefill.fare }}">
     <input type="hidden" id="selected_seats" name="selected_seats" value="">
     <input type="hidden" name="departure_time" value="{{ prefill.departure_time }}">
     <input type="hidden" name="arrival_time" value="{{ prefill.arrival_time }}">
+    <input type="hidden" name="return_date" id="return_date_hidden">
 
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-top:20px;">
+      
+      <!-- FROM -->
       <select name="from" required style="padding:12px; border-radius:6px;">
         <option value="">{{ prefill.from|default:"Travel From" }}</option>
         <option {% if prefill.from == "Dublin" %}selected{% endif %}>Dublin</option>
@@ -31,6 +36,7 @@
         <option {% if prefill.from == "Belfast" %}selected{% endif %}>Belfast</option>
       </select>
 
+      <!-- TO -->
       <select name="to" required style="padding:12px; border-radius:6px;">
         <option value="">{{ prefill.to|default:"Travel To" }}</option>
         <option {% if prefill.to == "Dublin" %}selected{% endif %}>Dublin</option>
@@ -41,7 +47,8 @@
         <option {% if prefill.to == "Belfast" %}selected{% endif %}>Belfast</option>
       </select>
 
-      <select name="ticket_type" required style="padding:12px; border-radius:6px;">
+      <!-- TICKET TYPE -->
+      <select name="ticket_type" onchange="toggleReturn()" required style="padding:12px; border-radius:6px;">
         <option value="">Ticket Type</option>
         <option>One Way</option>
         <option>Return</option>
@@ -50,7 +57,12 @@
       <input type="number" id="passengers" name="passengers" min="1" placeholder="Passengers" required style="padding:12px; border-radius:6px;">
 
       <input type="date" name="departure_date" required style="padding:12px; border-radius:6px;">
-      <input type="date" name="return_date" style="padding:12px; border-radius:6px;">
+      
+      <!-- RETURN DATE -->
+      <div id="return-date-box" style="display:none;">
+        <label>Return Date:</label>
+        <input type="date" id="return-date-input" style="padding:12px; border-radius:6px;">
+      </div>
     </div>
 
     {% if prefill.departure_time %}
@@ -89,47 +101,75 @@
 
     <h3 style="text-align:center;">Total Fare: €<span id="total_fare">0.00</span></h3>
 
-    <div style="text-align:center; margin-top:22px;">
-      <button type="submit" style="background:#0f8c2f;color:white;padding:12px 32px;border-radius:8px;border:none;cursor:pointer;font-size:16px;">Book Tickets</button>
+    <div style="text-align:center; margin-top:20px;">
+      <button type="submit" class="btn">Confirm Booking</button>
     </div>
+
   </form>
 
-  <div style="text-align:center; margin-top:16px;"><a href="/" style="color:#0f8c2f;">← Back to Dashboard</a></div>
+  <div style="text-align:center; margin-top:16px;">
+      <a href="/" style="color:#0f8c2f;">← Back to Dashboard</a>
+  </div>
 </div>
 
+<!-- Seat selection JS -->
 <script>
-  const baseFare = parseFloat(document.getElementById("hidden_fare").value || 0);
-  let selected = [];
+const baseFare = parseFloat(document.getElementById("hidden_fare").value || 0);
+let selected = [];
 
-  function updateUI(){
-    document.getElementById("selected_seats").value = selected.join(",");
-    document.getElementById("passengers").value = selected.length || 1;
-    const total = (baseFare * (selected.length || 1));
-    document.getElementById("total_fare").innerText = total.toFixed(2);
-    // set hidden fare final
-    document.getElementById("hidden_fare").value = total;
+function updateUI(){
+  document.getElementById("selected_seats").value = selected.join(",");
+  document.getElementById("passengers").value = selected.length || 1;
+  const total = (baseFare * (selected.length || 1));
+  document.getElementById("total_fare").innerText = total.toFixed(2);
+  document.getElementById("hidden_fare").value = total;
+}
+
+function toggleSeat(seatId){
+  const el = document.getElementById(seatId);
+  if(!el || el.classList.contains("booked")) return;
+
+  if(el.classList.contains("selected")){
+    el.classList.remove("selected");
+    el.classList.add("available");
+    selected = selected.filter(s=>s!==seatId);
+  } else {
+    el.classList.remove("available");
+    el.classList.add("selected");
+    selected.push(seatId);
   }
+  updateUI();
+}
 
-  function toggleSeat(seatId){
-    const el = document.getElementById(seatId);
-    if(!el || el.classList.contains("booked")) return;
-    if(el.classList.contains("selected")){
-      el.classList.remove("selected");
-      el.classList.add("available");
-      selected = selected.filter(s=>s!==seatId);
-    } else {
-      el.classList.remove("available");
-      el.classList.add("selected");
-      selected.push(seatId);
-    }
-    updateUI();
-  }
+function toggleReturn(){
+    let type = document.querySelector("select[name='ticket_type']").value;
+    let box = document.getElementById("return-date-box");
 
-  // initialize totals if there are preselected values
-  document.addEventListener("DOMContentLoaded", function(){
-    updateUI();
-  });
+    if(type === "Return")
+        box.style.display = "block";
+    else 
+        box.style.display = "none";
+}
+
+document.getElementById("return-date-input").addEventListener("change", function(){
+    document.getElementById("return_date_hidden").value = this.value;
+});
+
+document.addEventListener("DOMContentLoaded", updateUI);
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedDate = urlParams.get("date");
 
+    // Select the real date input
+    let dateInput = document.querySelector("input[name='departure_date']");
+
+    // Auto-fill ONLY if input exists
+    if (dateInput && selectedDate) {
+        dateInput.value = selectedDate;
+    }
+});
+</script>
 </body>
 {% endblock %}

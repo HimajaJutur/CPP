@@ -8,118 +8,143 @@
       📄 Your Booking History
   </h2>
 
-  <table style="
-      width:90%;
-      margin:auto;
-      border-collapse:collapse;
-      background:white;
-      border-radius:12px;
-      overflow:hidden;
-      box-shadow:0 0 12px rgba(0,0,0,0.1);
-  ">
-      <thead>
-        <tr style="background:#0058ff; color:white;">
-            <th style="padding:14px;">Booking ID</th>
+  {% if groups %}
+  <div style="width:90%; margin:auto;">
+
+    {% for g in groups %}
+      {% with b=g.outbound %}
+
+      <!-- OUTBOUND CARD -->
+      <div style="
+          background:white;
+          border-radius:12px;
+          margin-bottom:25px;
+          box-shadow:0 4px 15px rgba(0,0,0,0.1);
+          padding:20px;
+      ">
+
+        <!-- Header -->
+        <div style="background:#e7f0ff; padding:12px; border-radius:8px; margin-bottom:15px;">
+          <h3 style="margin:0; color:#0058ff;">🚌 Outbound Trip</h3>
+        </div>
+
+        <!-- Outbound Details Table -->
+        <table style="width:100%; border-collapse:collapse; margin-bottom:15px;">
+          <tr style="background:#f5f8ff;">
+            <th style="padding:10px;">Booking ID</th>
             <th>From</th>
             <th>To</th>
             <th>Date</th>
             <th>Departure</th>
             <th>Arrival</th>
             <th>Seats</th>
-            <th>Passengers</th>
-            <th>Total Fare (€)</th>
+            <th>Total</th>
             <th>Status</th>
             <th>Ticket</th>
             <th>Action</th>
-            
-        </tr>
-      </thead>
+          </tr>
 
-      <tbody>
-      {% for b in bookings %}
-      <tr style="text-align:center; border-bottom:1px solid #eee;">
-          
-          <!-- Booking ID -->
-          <td style="padding:12px; max-width:200px; word-break:break-all;">
-              {{ b.booking_id }}
-          </td>
+          <tr style="text-align:center;">
+            <td>{{ b.booking_id }}</td>
+            <td>{{ b.source }}</td>
+            <td>{{ b.destination }}</td>
+            <td>{{ b.departure_date }}</td>
+            <td>{{ b.departure_time }}</td>
+            <td>{{ b.arrival_time }}</td>
+            <td>{% if b.seats %}{{ b.seats|join:", " }}{% else %}-{% endif %}</td>
+            <td>€{{ b.fare }}</td>
+            <td>{{ b.status }}</td>
 
-          <!-- Route info -->
-          <td>{{ b.source }}</td>
-          <td>{{ b.destination }}</td>
-          <td>{{ b.departure_date }}</td>
-          <td>{{ b.departure_time }}</td>
-          <td>{{ b.arrival_time }}</td>
-
-          <!-- Seats -->
-          <td>
-            {% if b.seats and b.seats|length > 0 %}
-                {{ b.seats|join:", " }}
-            {% else %}
+            <td>
+              {% if b.pdf_url %}
+                <a href="{{ b.pdf_url }}" target="_blank"
+                   style="padding:6px 12px; background:#28a745; color:white; border-radius:6px; text-decoration:none;">
+                   PDF
+                </a>
+              {% else %}
                 -
-            {% endif %}
-          </td>
-
-          <!-- Passengers -->
-          <td>
-            {% if b.passengers %}
-                {{ b.passengers }}
-            {% elif b.seats %}
-                {{ b.seats|length }}
-            {% else %}
-                0
-            {% endif %}
-          </td>
-
-          <!-- Fare (now always correct) -->
-          <td>
-            {% if b.fare %}
-                €{{ b.fare }}
-            {% else %}
-                €0
-            {% endif %}
-          </td>
-
-          <!-- Status -->
-          <td>
-              {{ b.status }}
-          </td>
-            
-           <td>
-                {% if b.pdf_url %}
-                    <a href="{{ b.pdf_url }}" target="_blank"
-                       style="padding:8px 15px; background:#28a745; color:white; border-radius:6px; text-decoration:none;">
-                       Download
-                    </a>
-                {% else %}
-                    -
-                {% endif %}
+              {% endif %}
             </td>
 
-          <!-- Action -->
-          <td>
+            <td>
               {% if b.status != "CANCELLED" %}
-                  <a href="/cancel/{{ b.booking_id }}"
-                     style="padding:8px 15px; background:#ff4b4b; color:white;
-                            text-decoration:none; border-radius:6px;">
-                      Cancel
-                  </a>
+                <a href="/cancel/{{ b.booking_id }}"
+                  style="padding:6px 12px; background:#ff4b4b; color:white; border-radius:6px; text-decoration:none;">
+                  Cancel
+                </a>
               {% else %}
-                  <span style="color:#888;">Cancelled</span>
+                <span style="color:#888;">Cancelled</span>
               {% endif %}
-          </td>
+            </td>
+          </tr>
+        </table>
 
-      </tr>
+        <!-- RETURN TICKETS -->
+        {% if g.returns %}
+        <div style="background:#eaffea; padding:12px; border-radius:8px; margin-bottom:10px;">
+          <h4 style="margin:0; color:#0f8c2f;">↩ Return Trip(s)</h4>
+        </div>
 
-      {% empty %}
-      <tr>
-          <td colspan="11" style="padding:20px; text-align:center; color:#555;">
-              No bookings found.
-          </td>
-      </tr>
-      {% endfor %}
-      </tbody>
-  </table>
+        <table style="width:100%; border-collapse:collapse;">
+          <tr style="background:#f0fff0;">
+            <th style="padding:10px;">Booking ID</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date</th>
+            <th>Departure</th>
+            <th>Arrival</th>
+            <th>Seats</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Ticket</th>
+            <th>Action</th>
+          </tr>
+
+          {% for r in g.returns %}
+          <tr style="text-align:center;">
+            <td>{{ r.booking_id }}</td>
+            <td>{{ r.source }}</td>
+            <td>{{ r.destination }}</td>
+            <td>{{ r.departure_date }}</td>
+            <td>{{ r.departure_time }}</td>
+            <td>{{ r.arrival_time }}</td>
+            <td>{% if r.seats %}{{ r.seats|join:", " }}{% else %}-{% endif %}</td>
+            <td>€{{ r.fare }}</td>
+            <td>{{ r.status }}</td>
+
+            <td>
+              {% if r.pdf_url %}
+                <a href="{{ r.pdf_url }}" target="_blank"
+                   style="padding:6px 12px; background:#28a745; color:white; border-radius:6px; text-decoration:none;">
+                   PDF
+                </a>
+              {% else %}-{% endif %}
+            </td>
+
+            <td>
+              {% if r.status != "CANCELLED" %}
+                <a href="/cancel/{{ r.booking_id }}"
+                   style="padding:6px 12px; background:#ff4b4b; color:white; border-radius:6px; text-decoration:none;">
+                  Cancel
+                </a>
+              {% else %}
+                <span style="color:#888;">Cancelled</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+        {% endif %}
+
+      </div>
+      {% endwith %}
+    {% endfor %}
+
+  </div>
+
+  {% else %}
+    <p style="text-align:center; color:#666;">No bookings found.</p>
+  {% endif %}
 
 </div>
 {% endblock %}

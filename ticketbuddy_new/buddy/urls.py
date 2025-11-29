@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from .views import return_seat_page
 
 urlpatterns = [
     path('', views.index, name="index"),   # home page
@@ -18,5 +19,7 @@ urlpatterns = [
     path('select-seat/', views.select_seat_page, name="select-seat"),
     path("destinations/", views.destinations_page, name="destinations"),
     path("contact/", views.contact_page, name="contact"),
+    path("return-seat/", return_seat_page, name="return-seat"),
+    
 ]
     

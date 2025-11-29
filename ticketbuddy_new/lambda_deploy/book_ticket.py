@@ -45,6 +45,8 @@ def lambda_handler(event, context):
 
         booking_id = str(uuid.uuid4())
         created_at = datetime.utcnow().isoformat()
+        
+        parent_booking_id = body.get("parent_booking_id")
 
         item = {
             "booking_id": booking_id,
@@ -53,12 +55,18 @@ def lambda_handler(event, context):
             "destination": destination,
             "passengers": passengers_dec,
             "seats": seats,
-            "fare": total,  # Decimal
+            "fare": total,
             "departure_time": body.get("departure_time",""),
             "arrival_time": body.get("arrival_time",""),
+            "departure_date": body.get("departure_date",""),
+            "return_date": body.get("return_date",""),
+            "ticket_type": body.get("ticket_type","One Way"),
             "status": "CONFIRMED",
             "created_at": created_at
         }
+
+        if parent_booking_id:
+            item["parent_booking_id"] = parent_booking_id
 
         TICKETS.put_item(Item=item)
 
