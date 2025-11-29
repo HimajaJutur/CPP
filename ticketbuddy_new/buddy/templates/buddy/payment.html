@@ -1,0 +1,41 @@
+{% extends "buddy/base.html" %}
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div style="width:60%; margin:40px auto; padding:20px; background:white; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,0.1);">
+
+    <h2 style="text-align:center; color:#0058ff;">Complete Payment</h2>
+
+    <p><b>From:</b> {{ from }}</p>
+    <p><b>To:</b> {{ to }}</p>
+    <p><b>Date:</b> {{ date }}</p>
+    <p><b>Fare:</b> €{{ fare }}</p>
+    <p><b>Seats:</b> {{ seats }}</p>
+
+    <h3>Select Payment Method</h3>
+
+    <form method="GET" action="/payment-success/">
+
+        <input type="hidden" name="from" value="{{ from }}">
+        <input type="hidden" name="to" value="{{ to }}">
+        <input type="hidden" name="date" value="{{ date }}">
+        <input type="hidden" name="return_date" value="{{ return_date }}">
+        <input type="hidden" name="fare" value="{{ fare }}">
+        <input type="hidden" name="route" value="{{ route }}">
+        <input type="hidden" name="departure_time" value="{{ departure_time }}">
+        <input type="hidden" name="arrival_time" value="{{ arrival_time }}">
+        <input type="hidden" name="ticket_type" value="{{ ticket_type }}">
+        <input type="hidden" name="seats" value="{{ seats }}">
+        <input type="hidden" name="outbound_id" value="{{ outbound_id }}">
+        <input type="hidden" name="parent_booking_id" value="{{ parent_booking_id }}">
+        
+
+        <label><input type="radio" name="method" value="CARD" required> Card Payment</label><br><br>
+        <label><input type="radio" name="method" value="QR" required> QR Payment</label><br><br>
+
+        <button type="submit" style="padding:12px 26px; background:#28a745; color:white; border:none; border-radius:6px;">
+            Pay Now
+        </button>
+    </form>
+</div>
+{% endblock %}

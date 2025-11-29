@@ -20,6 +20,7 @@ urlpatterns = [
     path("destinations/", views.destinations_page, name="destinations"),
     path("contact/", views.contact_page, name="contact"),
     path("return-seat/", return_seat_page, name="return-seat"),
-    
+    path("payment/", views.payment_page, name="payment"),
+    path("payment-success/", views.payment_success, name="payment-success"),
 ]
     
